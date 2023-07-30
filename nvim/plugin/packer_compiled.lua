@@ -49,8 +49,8 @@ local function save_profiles(threshold)
 end
 
 time([[Luarocks path setup]], true)
-local package_path_str = "/home/vadim/snap/alacritty/common/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/home/vadim/snap/alacritty/common/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/home/vadim/snap/alacritty/common/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/home/vadim/snap/alacritty/common/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/vadim/snap/alacritty/common/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
+local package_path_str = "/home/vadim/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/home/vadim/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/home/vadim/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/home/vadim/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/vadim/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -84,6 +84,11 @@ _G.packer_plugins = {
     path = "/home/vadim/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
+  ["Vim-Darkmate"] = {
+    loaded = true,
+    path = "/home/vadim/.local/share/nvim/site/pack/packer/start/Vim-Darkmate",
+    url = "https://github.com/yearofmoo/Vim-Darkmate"
+  },
   ["ayu-vim"] = {
     loaded = true,
     path = "/home/vadim/.local/share/nvim/site/pack/packer/start/ayu-vim",
@@ -114,6 +119,16 @@ _G.packer_plugins = {
     path = "/home/vadim/.local/share/nvim/site/pack/packer/start/coc-emmet",
     url = "https://github.com/neoclide/coc-emmet"
   },
+  colorizer = {
+    loaded = true,
+    path = "/home/vadim/.local/share/nvim/site/pack/packer/start/colorizer",
+    url = "https://github.com/lilydjwg/colorizer"
+  },
+  everblush = {
+    loaded = true,
+    path = "/home/vadim/.local/share/nvim/site/pack/packer/start/everblush",
+    url = "https://github.com/Everblush/nvim"
+  },
   ["friendly-snippets"] = {
     loaded = true,
     path = "/home/vadim/.local/share/nvim/site/pack/packer/start/friendly-snippets",
@@ -128,6 +143,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vadim/.local/share/nvim/site/pack/packer/start/gruvbox",
     url = "https://github.com/morhetz/gruvbox"
+  },
+  ["indent-blankline.nvim"] = {
+    loaded = true,
+    path = "/home/vadim/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim",
+    url = "https://github.com/lukas-reineke/indent-blankline.nvim"
   },
   ["lspkind.nvim"] = {
     loaded = true,
@@ -159,6 +179,11 @@ _G.packer_plugins = {
     path = "/home/vadim/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
+  ["night-owl.vim"] = {
+    loaded = true,
+    path = "/home/vadim/.local/share/nvim/site/pack/packer/start/night-owl.vim",
+    url = "https://github.com/haishanh/night-owl.vim"
+  },
   ["null-ls.nvim"] = {
     loaded = true,
     path = "/home/vadim/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
@@ -183,6 +208,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vadim/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
+  },
+  ["nvim-spectre"] = {
+    loaded = true,
+    path = "/home/vadim/.local/share/nvim/site/pack/packer/start/nvim-spectre",
+    url = "https://github.com/nvim-pack/nvim-spectre"
   },
   ["nvim-tree.lua"] = {
     loaded = true,
@@ -251,15 +281,20 @@ _G.packer_plugins = {
     path = "/home/vadim/.local/share/nvim/site/pack/packer/start/vim-aurora",
     url = "https://github.com/rafalbromirski/vim-aurora"
   },
+  ["vim-bookmarks"] = {
+    loaded = true,
+    path = "/home/vadim/.local/share/nvim/site/pack/packer/start/vim-bookmarks",
+    url = "https://github.com/MattesGroeger/vim-bookmarks"
+  },
+  ["vim-illuminate"] = {
+    loaded = true,
+    path = "/home/vadim/.local/share/nvim/site/pack/packer/start/vim-illuminate",
+    url = "https://github.com/RRethy/vim-illuminate"
+  },
   ["vim-maximizer"] = {
     loaded = true,
     path = "/home/vadim/.local/share/nvim/site/pack/packer/start/vim-maximizer",
     url = "https://github.com/szw/vim-maximizer"
-  },
-  ["vim-multiple-cursors"] = {
-    loaded = true,
-    path = "/home/vadim/.local/share/nvim/site/pack/packer/start/vim-multiple-cursors",
-    url = "https://github.com/terryma/vim-multiple-cursors"
   },
   ["vim-nightfly-guicolors"] = {
     loaded = true,
@@ -275,6 +310,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/vadim/.local/share/nvim/site/pack/packer/start/vim-surround",
     url = "https://github.com/tpope/vim-surround"
+  },
+  ["vim-synthwave84"] = {
+    loaded = true,
+    path = "/home/vadim/.local/share/nvim/site/pack/packer/start/vim-synthwave84",
+    url = "https://github.com/artanikin/vim-synthwave84"
   },
   ["vim-tmux-navigator"] = {
     loaded = true,

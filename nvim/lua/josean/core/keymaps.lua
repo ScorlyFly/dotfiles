@@ -8,7 +8,6 @@ local keymap = vim.keymap -- for conciseness
 ---------------------
 
 -- helper
---
 -- ! при нажатие техже комнд он отключает что рание было включенно
 
 -- use jk to exit insert mode
@@ -17,10 +16,16 @@ keymap.set("i", "jk", "<ESC>")
 -- numbers
 keymap.set("n", "<leader>nq", ":set relativenumber!<CR>") -- number
 
+keymap.set("n", "<C-s>", ":w<CR>") -- сохранения файлa
 -- background opacity
 keymap.set("n", "<leader>nu", ":highlight LineNr guifg=#948E90 || hi Normal guibg=NONE ctermbg=NONE<CR>")
 
-keymap.set("n", "<leader>nm", ":set wrap!<CR>") -- number
+keymap.set("n", "<leader>dl", ":g/^\\s*$/d") -- удалить все пустые строки в коде
+-- wrap or nowrap
+keymap.set("n", "<leader>nm", ":set wrap!<CR>")
+
+-- photo preview feh
+keymap.set("n", "<leader>nv", ":!feh %<CR>")
 
 -- clear search highlights
 keymap.set("n", "<leader>nh", ":nohl<CR>")
@@ -66,5 +71,38 @@ keymap.set("n", "<leader>gfc", "<cmd>Telescope git_bcommits<cr>") -- list git co
 keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>") -- list git branches (use <cr> to checkout) ["gb" for git branch]
 keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>") -- list current changes per file with diff preview ["gs" for git status]
 
+keymap.set("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>', {
+	desc = "Toggle Spectre",
+})
+keymap.set("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+	desc = "Search current word",
+})
+keymap.set("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+	desc = "Search current word",
+})
+keymap.set("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
+	desc = "Search on current file",
+})
+
 -- restart lsp server (not on youtube nvim video)
 keymap.set("n", "<leader>rs", ":LspRestart<CR>") -- mapping to restart lsp if necessary
+
+-- работает в alacritty -- горизонтальный скролл мышкой
+keymap.set("n", "<C-ScrollWheelUp>", "z3l")
+keymap.set("n", "<C-ScrollWheelDown>", "z3h")
+
+-- для cpm переход по $1 итд cнипетты
+keymap.set("i", "<C-t>", "<cmd>lua require('luasnip').jump(1)<Cr>")
+keymap.set("i", "<C-r>", "<cmd>lua require('luasnip').jump(-1)<Cr>")
+
+-- Сопостовления клавишам передвижения
+keymap.set("i", "<C-j>", "<Left>")
+keymap.set("i", "<C-k>", "<Right>")
+keymap.set("i", "<C-l>", "<DELETE>") -- удалять по символу взади клавиша delete
+-- Ctrl + h -- по умолчанию уже работает и удаляет как клавиша backspace
+
+keymap.set("n", "<leader>y", ":%y+<Cr>")
+
+-- formatter
+-- priettier
+keymap.set("n", "<leader>np", ":!prettier % --write<CR>")

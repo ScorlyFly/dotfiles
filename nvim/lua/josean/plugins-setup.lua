@@ -39,6 +39,10 @@ return packer.startup(function(use)
 	use("folke/tokyonight.nvim")
 	use("ayu-theme/ayu-vim")
 	use("rafalbromirski/vim-aurora")
+	use({ "Everblush/nvim", as = "everblush" })
+	use("haishanh/night-owl.vim")
+	use("artanikin/vim-synthwave84")
+	use("yearofmoo/Vim-Darkmate")
 
 	use("christoomey/vim-tmux-navigator") -- tmux & split window navigation
 
@@ -56,7 +60,6 @@ return packer.startup(function(use)
 
 	-- vs-code like icons
 	use("nvim-tree/nvim-web-devicons")
-
 	-- statusline
 	use("nvim-lualine/lualine.nvim")
 
@@ -68,9 +71,14 @@ return packer.startup(function(use)
 	use("hrsh7th/nvim-cmp") -- completion plugin
 	use("hrsh7th/cmp-buffer") -- source for text in buffer
 	use("hrsh7th/cmp-path") -- source for file system paths
-
-	-- snippets
-	use("L3MON4D3/LuaSnip") -- snippet engine
+	use({
+		"L3MON4D3/LuaSnip",
+		-- follow latest release.
+		tag = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+		-- install jsregexp (optional!:).
+		run = "make install_jsregexp",
+	})
+	--use("L3MON4D3/LuaSnip") -- snippet engine
 	use("saadparwaiz1/cmp_luasnip") -- for autocompletion
 	use("rafamadriz/friendly-snippets") -- useful snippets
 
@@ -120,7 +128,18 @@ return packer.startup(function(use)
 	use("powerman/vim-plugin-ruscmd")
 
 	-- multicursor
-	use("terryma/vim-multiple-cursors")
+	-- use("terryma/vim-multiple-cursors")
+
+	-- rust lsp
+	-- use("simrat39/rust-tools.nvim")
+
+	use("MattesGroeger/vim-bookmarks") -- маркеры
+	use("nvim-pack/nvim-spectre") -- плагин для глобального поиска и замены
+	-- use("andymass/vim-matchup") -- плагин для подсвечивания начального и конечного тега g% %  перемещения по веделенным тегам
+	use("RRethy/vim-illuminate") -- перемещения -- (A-n и A-p) плагин для подсвечивания начального и конечного тега
+	use("lilydjwg/colorizer") -- подсвечивания цветов
+
+	use("lukas-reineke/indent-blankline.nvim")
 
 	if packer_bootstrap then
 		require("packer").sync()

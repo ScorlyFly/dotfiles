@@ -76,17 +76,17 @@ lspconfig["cssls"].setup({
 	on_attach = on_attach,
 })
 
--- configure css server
+-- configure python server
 lspconfig["pyright"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
 -- configure tailwindcss server
-lspconfig["tailwindcss"].setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-})
+-- lspconfig["tailwindcss"].setup({
+-- 	capabilities = capabilities,
+-- 	on_attach = on_attach,
+-- })
 
 -- configure emmet language server
 lspconfig["emmet_ls"].setup({
