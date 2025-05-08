@@ -1,4 +1,7 @@
 {
+    "editor.fontFamily": "Fira Code",
+    "editor.fontLigatures": true, 
+    "editor.fontSize": 12,
     "explorer.confirmDelete": false,
     "workbench.colorTheme": "Ayu Dark Bordered",
     "[html]": {
@@ -12,6 +15,7 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     // My config
+    "update.mode": "none",               // отключить автообновления vscode
     "editor.tabSize": 4,                 // tabs 4
     "editor.insertSpaces": true,         // включает пробелы при нажатие Tab внизу будет написанно Space 4
     "editor.detectIndentation": false,   // отключаем функцию угадывание отступов во всех документов, применяется tab 4
@@ -20,6 +24,8 @@
     "vim.easymotion": true,
     "vim.hlsearch": true,
     "vim.incsearch": true,
+    // 1. extension.vim_ctrl+c   --> keyboard(shortcuts) переназначить на любую другую комбинацию и унас будет работать ctrl + c в режиме insert 
+    // 2. extension.vim_ctrl+b --> keyboard(shortcuts) меняем на любую сложную сочетание чтобы было мало вероятно нажатия на горячии клавиши чтобы панель закрывалась на ctrl+b нормально
     // "vim.easymotionMarkerBackgroundColor": "#fff",
     "vim.useSystemClipboard": true,
     //"vim.langmap": "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz", -- более новая версия поддерживает
@@ -52,10 +58,15 @@
             "before": ["<C-e>"],
             "after": ["backspace"]
         },
-        {        
+        // {
+        //     "before": ["<C-с>"],
+        //     "after": ["y-y"]
+        // },
+        {
+            // yank to system clipboard
             "before": ["<C-c>"],
-            "after": ["<C-c"]
-        }, 
+            "after": ["ctrl+shift+y"]
+        },
     ],
     "vim.normalModeKeyBindings": [
         {        
@@ -105,6 +116,10 @@
         {
             "before": ["<leader>", "k"],
             "after": ["d", "d", "k", "P"]
+        },
+        {
+            "before": ["<leader>", "i", "\""],
+            "after": ["v", "i", "\""]
         },
         { "before": ["й"], "after": ["q"] },
         { "before": ["ц"], "after": ["w"] },
@@ -369,4 +384,11 @@
         { "before": ["Ю"], "after": [">"] }
     ],
     "editor.minimap.enabled": false,
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.statusBar.visible": false,
+    "chat.commandCenter.enabled": false,
+    "workbench.layoutControl.enabled": false,
+    "window.menuBarVisibility": "compact",
+    "window.commandCenter": false,
+    "workbench.activityBar.location": "bottom",
 }
