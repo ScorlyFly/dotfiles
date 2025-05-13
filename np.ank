@@ -40,7 +40,7 @@
   Send "{right}"
 }
 
-; alt left right
+; alt
 !i:: {
   Send "^+{left}"
 }
