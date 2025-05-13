@@ -26,7 +26,11 @@
     "vim.incsearch": true,
     // 1. extension.vim_ctrl+c   --> keyboard(shortcuts) переназначить на любую другую комбинацию и унас будет работать ctrl + c в режиме insert 
     // 2. extension.vim_ctrl+b --> keyboard(shortcuts) меняем на любую сложную сочетание чтобы было мало вероятно нажатия на горячии клавиши чтобы панель закрывалась на ctrl+b нормально
+    // 3. extension.vim_ctrl=x --> тагже пишем не реальную комбинацию чтобы мы случайно не нажали её
     // "vim.easymotionMarkerBackgroundColor": "#fff",
+    // 4. editor.action.copyLines --> дублирования строк вверх и вниз ставим например на alt+d, alt+f
+    // 5. extension.vim_ctrl+y  --> меняем на чтото другое чтобы унас правально работал redo
+    // 6. extension.vim_ctrl+r  --> тагже как и все остальные специально убераем чтобы она не мешала extension.vim_ctrl+z а тут выставляем ctrl + z
     "vim.useSystemClipboard": true,
     //"vim.langmap": "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz", -- более новая версия поддерживает
     "vim.insertModeKeyBindings": [
