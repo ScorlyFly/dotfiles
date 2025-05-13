@@ -39,3 +39,19 @@
 ^l:: {
   Send "{right}"
 }
+
+; alt left right
+!i:: {
+  Send "^+{left}"
+}
+!o:: {
+  Send "^+{right}"
+}
+
+; backspace
++backspace:: {
+  Send "{delete}"
+}
+#backspace:: {
+  Send "^{delete}"
+}
