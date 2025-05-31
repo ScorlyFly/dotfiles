@@ -47,6 +47,12 @@
 !o:: {
   Send "^+{right}"
 }
+!9:: {
+  Send "{home}"
+}
+!0:: {
+  Send "{end}"
+}
 
 ; backspace
 +backspace:: {
