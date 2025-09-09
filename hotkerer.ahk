@@ -61,8 +61,3 @@
 #backspace:: {
   Send "^{delete}"
 }
-
-; переключает отмену на ctrl + r
-^r:: {
-	Send('^z')
-}
