@@ -1,25 +1,30 @@
 # Этот Makefile требует явного указания цели
 
 .PHONY: default app env
+MAKEFLAGS += --no-print-directory  
 
 .DEFAULT_GOAL := app
 
-default:
-	@echo "Please specify the purpose clearly."
 
-# Использование: make app=bot
+empty_app :=
+empty_env :=
+
+help:
+	@echo make app=app -- python ./cmd/app/main.py
+	@echo make env env=app -- activate environment in .venv/app/Script/activate
+
+
 app:
-	@if "$(app)"=="" ( \
-		echo use template: make env env=bot & \
-		exit /b 1 \
-	)
-	python .\cmd\$(app)\main.py
+    ifeq ($(app), $(empty_app))
+		@echo "*** Makerfile *** not a single parameter was passed! you can use: make help "
+    else
+		@python .\cmd\$(app)\main.py
+    endif
 
-# Использование: make env env=bot
+
 env:
-	@if "$(env)"=="" ( \
-		echo use template: make env env=bot & \
-		exit /b 1 \
-	)
-	@echo   .\.venv\$(env)\Scripts\activate
-	@echo .\.venv\$(env)\Scripts\activate | clip
+    ifeq ($(env), $(empty_env))
+		@echo "not a single parameter was passed! you can use: make help "
+    else
+		@echo .\.venv\$(env)\Scripts\activate | clip
+    endif
