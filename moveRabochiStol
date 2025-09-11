@@ -1,7 +1,7 @@
-!n:: {
+!q:: {
   Send "^#{left}"
 }
 
-!m:: {
+!w:: {
   Send "^#{right}"
 }
