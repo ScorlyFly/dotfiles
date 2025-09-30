@@ -1,9 +1,20 @@
 {
+    "files.encoding": "utf8", // -- добовляет по умолчанию utf-8 всем файлам 
     "editor.fontFamily": "Fira Code",
     "editor.fontLigatures": true, 
     "editor.fontSize": 12,
     "explorer.confirmDelete": false,
-    "workbench.colorTheme": "Ayu Dark Bordered",
+
+    "explorer.sortOrder": "filesFirst",
+    // "explorer.sortOrder": "default",      // стандартная сортировка
+    // "explorer.sortOrder": "mixed",        // файлы и папки вместе
+    // "explorer.sortOrder": "filesFirst",   // сначала файлы
+    // "explorer.sortOrder": "type",         // по типу
+    // "explorer.sortOrder": "modified",     // по дате изменения
+    // "explorer.sortOrder": "name",         // по имени
+    // "explorer.sortOrder": "nameLength"    // по длине имени
+
+    "workbench.colorTheme": "Ayu Dark",
     "[html]": {
         "editor.defaultFormatter": "vscode.html-language-features"
     },
@@ -12,9 +23,17 @@
     "css.hover.references": false,
     "html.hover.references": true,
     "[css]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+        "editor.defaultFormatter": "vscode.css-language-features"
     },
-    // My config
+    // // My config
+    // "emmet.syntaxProfiles": {
+    //     "html": {
+    //         "inline_break": 1, 
+    //     }
+    // },
+    "emmet.preferences": { // выводит класс первый а имя отрибута вторым
+        "output.reverseAttributes": true
+    },
     "update.mode": "none",               // отключить автообновления vscode
     "editor.tabSize": 4,                 // tabs 4
     "editor.insertSpaces": true,         // включает пробелы при нажатие Tab внизу будет написанно Space 4
@@ -24,6 +43,7 @@
     "vim.easymotion": true,
     "vim.hlsearch": true,
     "vim.incsearch": true,
+    // СВОИМИ СИЛАМИ
     // 1. extension.vim_ctrl+c   --> keyboard(shortcuts) переназначить на любую другую комбинацию и унас будет работать ctrl + c в режиме insert 
     // 2. extension.vim_ctrl+b --> keyboard(shortcuts) меняем на любую сложную сочетание чтобы было мало вероятно нажатия на горячии клавиши чтобы панель закрывалась на ctrl+b нормально
     // 3. extension.vim_ctrl=x --> тагже пишем не реальную комбинацию чтобы мы случайно не нажали её
@@ -31,8 +51,18 @@
     // 4. editor.action.copyLines --> дублирования строк вверх и вниз ставим например на alt+d, alt+f
     // 5. extension.vim_ctrl+y  --> меняем на чтото другое чтобы унас правально работал redo
     // 6. extension.vim_ctrl+r  --> тагже как и все остальные специально убераем чтобы она не мешала extension.vim_ctrl+z а тут выставляем ctrl + z
+    // 7. keyboard shortcuts --> снимаем с клавиш ctrl + 9, ctrl + 0 горячие клавиши и ставим на
+    // 7.1   Unfold  --> ctrl + 0, Fold --> ctrl + 9 
+    // 7.2  -->   Fold All ==> скрыть всё alt+9, Unfold all развернуть всё ==> alt+0
+    // 8.  extension.vim_down, extension.vim_up --> написать что угодно чтобы унас нормально работали стрелки и не открывали свёрнутый код
+    // 8.1  extension.vim_left и extention.vim_right
     "vim.useSystemClipboard": true,
+    //"vim.foldfix": true, --> не решение по запрету на открытие свернутых кусков кода так как сбиваются столбцы и тем самым мы не сможем нормально новигироваться alt курсор мыши тоесть множественными курсорами
     //"vim.langmap": "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz", -- более новая версия поддерживает
+    //"Emmet Go to matching Pair ctrl+alt+j переход междду тегами
+    //"Emmet Toggle Comment ctrl+alt+\
+    //"Emmet Remove Tag alt+backspase 
+    // Toggle Line Comment ставим на ctrl+\ комментаррии так удобнее нажимать
     "vim.insertModeKeyBindings": [
         {
             "before": ["j", "j"],
@@ -41,23 +71,24 @@
         {
             "before": ["о", "о"],
             "after": ["<Esc>"]
-        }, 
-        {
-            "before": ["<C-j>"],
-            "after": ["down"]
         },
-        {
-            "before": ["<C-k>"],
-            "after": ["up"]
-        },
-        {
-            "before": ["<C-h>"],
-            "after": ["left"]
-        },
-        {
-            "before": ["<C-l>"],
-            "after": ["right"]
-        },
+        // Лучше использовать с моего гитхаб ScorlyFly утилиту hotkerer так как это не решает самооткрытие свернутого кода
+        // {
+        //     "before": ["<C-j>"],
+        //     "after": ["down"]
+        // },
+        // {
+        //     "before": ["<C-k>"],
+        //     "after": ["up"]
+        // },
+        // {
+        //     "before": ["<C-h>"],
+        //     "after": ["left"]
+        // },
+        // {
+        //     "before": ["<C-l>"],
+        //     "after": ["right"]
+        // },
         {
             "before": ["<C-e>"],
             "after": ["backspace"]
@@ -73,6 +104,57 @@
         },
     ],
     "vim.normalModeKeyBindings": [
+        // -------------------------------->
+        {        
+            "before": ["<leader>", "1gt"],
+            "after": ["alt", "1"]
+        },
+        {        
+            "before": ["<leader>", "2gt"],
+            "after": ["alt", "2"]
+        },
+        {        
+            "before": ["<leader>", "3gt"],
+            "after": ["alt", "3"]
+        },
+        {        
+            "before": ["<leader>", "4gt"],
+            "after": ["alt", "4"]
+        },
+        {        
+            "before": ["<leader>", "5gt"],
+            "after": ["alt", "5"]
+        },
+        {        
+            "before": ["<leader>", "6gt"],
+            "after": ["alt", "6"]
+        },
+        {        
+            "before": ["<leader>", "7gt"],
+            "after": ["alt", "7"]
+        },
+        {        
+            "before": ["<leader>", "8gt"],
+            "after": ["alt", "8"]
+        },
+        {        
+            "before": ["<leader>", "9gt"],
+            "after": ["alt", "9"]
+        },
+        // {        
+        //     "before": ["gt"],
+        //     "after": ["gt"]
+        // },
+        // меняем перемещения чтобы унас не было самооткрытие свернутого кода 
+        {        
+            "before": ["j"],
+            "after": ["g", "j"]
+        },
+        {        
+            "before": ["k"],
+            "after": ["g", "k"]
+        },
+        // ..  --------------------------------------->
         {        
             "before": ["<C-v>"],
             "after": ["P"]
@@ -80,7 +162,7 @@
         {
             "before": ["<leader>", "s"],
             "commands": [":w"]   
-        },
+        },        
         {
             "before": ["<leader>", "v"],
             "commands": [":vs"] 
@@ -114,10 +196,16 @@
             "after": ["\"", "_", "x"]
         },
         {
+            "before": ["<leader>", "i", "("],
+            "after": ["\"", "_", "d", "i", ")"]
+        },
+        {
+            // перемещение через элименты
             "before": ["<leader>", "j"],
             "after": ["d", "d", "p"]
         },
         {
+            // перемещение через элименты
             "before": ["<leader>", "k"],
             "after": ["d", "d", "k", "P"]
         },
@@ -240,7 +328,7 @@
             "after": ["\"", "+" ,"p"]
         },
         {
-            "before": ["<Space>", "a"],
+            "before": ["<leader>", "a"],
             "after": ["leader", "leader", "leader", "b", "d", "w"]
         },
         
@@ -389,10 +477,56 @@
     ],
     "editor.minimap.enabled": false,
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.statusBar.visible": false,
     "chat.commandCenter.enabled": false,
     "workbench.layoutControl.enabled": false,
-    "window.menuBarVisibility": "compact",
     "window.commandCenter": false,
     "workbench.activityBar.location": "bottom",
+    "editor.mouseWheelZoom": true, // --> zoom на колёсико мышки
+    "editor.showFoldingControls": "always",
+    // indentRainbow
+    "indentRainbow.indicatorStyle": "light",
+    "indentRainbow.lightIndicatorStyleLineWidth": 1,
+    "indentRainbow.colors": [
+        "rgba(255,255,64,0.3)",
+        "rgba(127,255,127,0.3)",
+        "rgba(255,127,255,0.3)",
+        "rgba(79,236,236,0.3)"
+    ],
+    "debug.disassemblyView.showSourceCode": false,
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "tailwindCSS.experimental.configFile": "./tailwind.config.js",
+    "git.enableSmartCommit": true,
+    "git.autofetch": true,
+    "explorer.compactFolders": false,
+
+
+
+    // настройки с форматирвоанием и tailwind
+    "tailwindcss.experimental.enableCSI": true,
+    "tailwindcss.languageJustification": "configuration",
+    "tailwindcss.cssFilePaths": [
+        "./src",
+        "./styles"
+    ],
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.quickSuggestions": {
+        "other": true,
+        "strings": true,
+        "comments": true
+    },
+    "editor.formatOnSave": true,
+    "prettier.eslintIntegration": true,
+    "python.analysis.diagnosticsSource": "Pyright",
+    "editor.smoothScrolling": true,
+    "workbench.list.smoothScrolling": true,
+    "terminal.integrated.smoothScrolling": true,
+
+    "ecsstractor_port.bem_nesting": true, // копирование scss
+    "ecsstractor_port.brackets_newline_after": false,
+    "workbench.editor.empty.hint": "hidden",
+    "workbench.secondarySideBar.defaultVisibility": "visible", //  
+    // "ecsstractor_port.element_separator": "__"
+
 }
