@@ -63,6 +63,8 @@
     //"Emmet Toggle Comment ctrl+alt+\
     //"Emmet Remove Tag alt+backspase 
     // Toggle Line Comment ставим на ctrl+\ комментаррии так удобнее нажимать
+
+    // version vim mode 1.21.7
     "vim.insertModeKeyBindings": [
         {
             "before": ["j", "j"],
