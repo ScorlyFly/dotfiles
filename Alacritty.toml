@@ -32,8 +32,9 @@ shape = "Block"
 [font]
 size = 10
 
+# https://www.nerdfonts.com/font-downloads  -- скачиваем отсюда шрифт и вставляет в терминал после чего вместе со шрифтом будут отоброжатся иконки файлов папок итд в том-же nvim
 [font.normal]
-family = "Fira Code Retina"
+family = "FiraCode Nerd Font"
 style = "Regular"
 
 [window]
