@@ -1,0 +1,30 @@
+# [ids]  -- озночает применить для текущей клавиатуры # * -- в низу указывает что все подключаемые клавиатуры будет применять настройки конфига [ids]
+[ids]
+*
+
+[main]
+# обходное решение для fedora чтобы keyd не переназначал правые control и shift в качестве левого
+rightshift = rightshift
+rightcontrol = rightcontrol
+
+# переназначаем capslock на control
+capslock = leftcontrol
+control = capslock
+# тут я специально поменял правый alt на правый control чтобы сохранить такие горячие клавишу для удобного нажатия ctrl + o
+rightalt = rightcontrol
+
+[control]
+h = left
+l = right
+k = up 
+j = down
+i = C-left
+o = C-right
+, = home
+. = end
+
+[alt]
+h = C-S-left
+j = C-S-down
+k = C-S-up
+l = C-S-right
