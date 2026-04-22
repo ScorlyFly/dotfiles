@@ -4,7 +4,9 @@
 
 [main]
 # обходное решение для fedora чтобы keyd не переназначал правые control и shift в качестве левого
-rightshift = rightshift
+#rightshift = rightshift
+rightshift = `
+` = leftmeta
 rightcontrol = rightcontrol
 
 # переназначаем capslock на control
@@ -16,7 +18,7 @@ rightalt = rightcontrol
 [control]
 h = left
 l = right
-k = up 
+k = up
 j = down
 i = C-left
 o = C-right
@@ -28,3 +30,6 @@ h = C-S-left
 j = C-S-down
 k = C-S-up
 l = C-S-right
+
+
+
