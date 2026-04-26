@@ -15,6 +15,9 @@ control = capslock
 # тут я специально поменял правый alt на правый control чтобы сохранить такие горячие клавишу для удобного нажатия ctrl + o
 rightalt = rightcontrol
 
+# Если просто нажать клавишу f2 она будет работать как f2 а если зажать то специальная комбо клавиша
+f2 = overload(f2, f2)
+
 [control]
 h = left
 l = right
@@ -25,11 +28,12 @@ o = C-right
 , = home
 . = end
 
+# перезагрузка композитора wayland (Важно понимать что на данный момент перезагрузить wayland с сохранением отkрытых окон невозможно, это возможно только на Xorg) для включение в x11 используем встроенные параметр в gnome-tweak встоенный не будет работать с wayland
+[f2]
+right = command(systemctl restart gdm)
+
 [alt]
-h = C-S-left
+h = S-left
 j = C-S-down
 k = C-S-up
-l = C-S-right
-
-
-
+l = S-right
