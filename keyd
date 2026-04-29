@@ -7,7 +7,7 @@
 #rightshift = rightshift
 rightshift = `
 ` = leftmeta
-rightcontrol = rightcontrol
+#rightcontrol = rightcontrol
 
 # переназначаем capslock на control
 capslock = leftcontrol
@@ -17,6 +17,7 @@ rightalt = rightcontrol
 
 # Если просто нажать клавишу f2 она будет работать как f2 а если зажать то специальная комбо клавиша
 f2 = overload(f2, f2)
+space = overload(space_modifier, space)
 
 [control]
 h = left
@@ -27,6 +28,15 @@ i = C-left
 o = C-right
 , = home
 . = end
+space = space
+
+
+[space_modifier:A]
+f = A-tab
+d = A-S-tab
+c = C-z
+v = C-y
+
 
 # перезагрузка композитора wayland (Важно понимать что на данный момент перезагрузить wayland с сохранением отkрытых окон невозможно, это возможно только на Xorg) для включение в x11 используем встроенные параметр в gnome-tweak встоенный не будет работать с wayland
 [f2]
