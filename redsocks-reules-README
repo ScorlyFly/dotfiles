@@ -17,3 +17,9 @@
 
 #   Скачиваем скрипт который лежит сдесь redsocks-rules.sh
 
+# Устанавливаем ipset, если нет
+sudo dnf install ipset
+
+# Создаем список для российских IP
+sudo ipset create russia_ips hash:net
+
