@@ -30,7 +30,8 @@ control = capslock
 # Делаем пробел обычным, полезно в случии если вы играете и пробел нужно сделать обычным 
 space = space
 # данный способ легко позволяет заставить capslock работать без комбинации не мешая играть в игры
-capslock = macro(leftcontrol)
+# capslock = macro(leftcontrol)
+capslock = overload(control, control)
 
 [control]
 h = left
