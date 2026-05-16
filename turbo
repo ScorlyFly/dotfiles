@@ -1,0 +1,35 @@
+#!/bin/bash
+
+#  WARNING  INSTALLING SCRIPT TO PATH     
+#  mv turbo /usr/local/turbo  
+#  before will we can use command turbo no and turbo off
+
+
+# Путь к файлу управления Turbo Boost
+TARGET="/sys/devices/system/cpu/intel_pstate/no_turbo"
+
+# Проверяем, существует ли файл (поддерживает ли процессор этот метод)
+if [ ! -f "$TARGET" ]; then
+    echo "Ошибка: Файл управления Turbo Boost не найден. Возможно, у вас не Intel или используется другой драйвер."
+    exit 1
+fi
+
+# Логика обработки аргумента
+case "$1" in
+    yes)
+        echo "Включаю Turbo Boost..."
+        echo "0" | sudo tee "$TARGET" > /dev/null
+        ;;
+    no)
+        echo "Выключаю Turbo Boost..."
+        echo "1" | sudo tee "$TARGET" > /dev/null
+        ;;
+    *)
+        echo "Использование: turbo yes | turbo no"
+        echo "  yes - включить (записать 0 в no_turbo)"
+        echo "  no  - выключить (записать 1 в no_turbo)"
+        exit 1
+        ;;
+esac
+
+echo "Текущее состояние no_turbo: $(cat $TARGET) (1 = выключен, 0 = включен)"
