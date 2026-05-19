@@ -1,0 +1,147 @@
+#!/bin/bash
+
+# Важно скачайте от сюда tun2proxy и перенесите в /usr/bin/
+# https://github.com/xjasonlyu/tun2socks    проще скачать архив и потом переименовать испольняемый файл в tun2socks
+
+# дополнительно источник 
+# https://habr.com/ru/articles/584162/
+
+
+
+# --- НАСТРОЙКИ ПЕРЕМЕННЫХ ---
+PROXY_USER="user385163"
+PROXY_PASS="lzx16k"
+PROXY_IP="185.138.233.36"
+PROXY_PORT="14264"
+
+# Локальные сетевые интерфейсы и шлюзы
+MAIN_IFACE="wlo1"
+GATEWAY_IP="192.168.0.1"
+
+# Настройки виртуального туннеля
+TUN_IFACE="gatewaytun"
+TUN_IP="198.18.0.1/15"
+
+# Путь к бинарю tun2socks (укажите ваш точный путь, если он отличается)
+TUN2SOCKS_BIN="tun2socks"
+
+# Файл для сохранения дефолтных настроек sysctl перед оптимизацией
+SYSCTL_BACKUP="/var/run/sysctl_backup.txt"
+# ----------------------------
+
+# Проверка на root-права
+if [ "$EUID" -ne 0 ]; then
+  echo "Ошибка: Этот скрипт необходимо запускать от имени root (через sudo)."
+  exit 1
+fi
+
+case "$1" in
+  start)
+    echo "=== Запуск прокси-туннеля ==="
+
+    # 1. Настройка DNS (Бэкап и замена на Google DNS)
+    if [ -f /etc/resolv.conf ]; then
+        echo "[*] Сохраняем резервную копию resolv.conf..."
+        cp /etc/resolv.conf /etc/resolv.conf.backup
+    fi
+    echo "[*] Устанавливаем Google DNS..."
+    echo -e "nameserver 8.8.8.8\nameserver 8.8.4.4" > /etc/resolv.conf
+
+    # 2. Создание TUN интерфейса
+    echo "[*] Создаем интерфейс $TUN_IFACE..."
+    ip tuntap add mode tun dev "$TUN_IFACE"
+    ip addr add "$TUN_IP" dev "$TUN_IFACE"
+    ip link set dev "$TUN_IFACE" up
+    nmcli device set "$TUN_IFACE" managed no 2>/dev/null
+
+    # 3. Настройка фаервола и rp_filter
+    echo "[*] Отключаем firewalld и настраиваем rp_filter..."
+    systemctl stop firewalld
+    sysctl -w net.ipv4.conf.all.rp_filter=2 >/dev/null
+    sysctl -w net.ipv4.conf.$MAIN_IFACE.rp_filter=2 >/dev/null
+    sysctl -w net.ipv4.conf.$TUN_IFACE.rp_filter=2 >/dev/null
+
+    # 4. Сохранение текущих и применение новых сетевых оптимизаций (sysctl)
+    echo "[*] Сохраняем базовые настройки сети и применяем оптимизацию..."
+    # Делаем слепок текущих параметров
+    echo "net.ipv4.tcp_rmem=$(sysctl -n net.ipv4.tcp_rmem)" > "$SYSCTL_BACKUP"
+    echo "net.ipv4.tcp_wmem=$(sysctl -n net.ipv4.tcp_wmem)" >> "$SYSCTL_BACKUP"
+    echo "net.ipv4.tcp_tw_reuse=$(sysctl -n net.ipv4.tcp_tw_reuse)" >> "$SYSCTL_BACKUP"
+    echo "net.core.netdev_max_backlog=$(sysctl -n net.core.netdev_max_backlog)" >> "$SYSCTL_BACKUP"
+
+    # Применяем новые параметры тюнинга
+    sysctl -w net.ipv4.tcp_rmem="4096 87380 16777216" > /dev/null
+    sysctl -w net.ipv4.tcp_wmem="4096 65536 16777216" > /dev/null
+    sysctl -w net.ipv4.tcp_tw_reuse=1 > /dev/null
+    sysctl -w net.core.netdev_max_backlog=5000 > /dev/null
+
+    # 5. Настройка маршрутизации
+    echo "[*] Добавляем маршруты..."
+    ip route del "$PROXY_IP/32" via "$GATEWAY_IP" dev "$MAIN_IFACE" 2>/dev/null
+    ip route add "$PROXY_IP/32" via "$GATEWAY_IP" dev "$MAIN_IFACE"
+    ip route replace default dev "$TUN_IFACE" metric 1
+
+    # 6. Запуск tun2socks в фоновом режиме
+    echo "[*] Запускаем tun2socks..."
+    PROXY_URL="socks5://${PROXY_USER}:${PROXY_PASS}@${PROXY_IP}:${PROXY_PORT}"
+    $TUN2SOCKS_BIN -device "tun://$TUN_IFACE" -proxy "$PROXY_URL" -interface "$MAIN_IFACE" > /var/log/tun2socks.log 2>&1 &
+    echo $! > /var/run/tun2socks_script.pid
+
+    echo "=== ТУННЕЛЬ УСПЕШНО ЗАПУЩЕН ==="
+    echo "Проверить IP можно командой: curl ifconfig.me"
+    ;;
+
+  stop)
+    echo "=== Остановка прокси-туннеля ==="
+
+    # 1. Останавливаем процесс tun2socks
+    if [ -f /var/run/tun2socks_script.pid ]; then
+        echo "[*] Останавливаем процесс tun2socks..."
+        PID=$(cat /var/run/tun2socks_script.pid)
+        kill "$PID" 2>/dev/null
+        rm -f /var/run/tun2socks_script.pid
+    else
+        echo "[*] PID файл не найден, пробуем убить по имени..."
+        pkill -f tun2socks 2>/dev/null
+    fi
+
+    # 2. Восстановление стандартных параметров sysctl (откат оптимизаций)
+    if [ -f "$SYSCTL_BACKUP" ]; then
+        echo "[*] Возвращаем стандартные сетевые настройки sysctl..."
+        while IFS= read -line line; do
+            sysctl -w "$line" > /dev/null
+        done < "$SYSCTL_BACKUP"
+        rm -f "$SYSCTL_BACKUP"
+    fi
+
+    # 3. Удаляем маршруты и TUN интерфейс
+    echo "[*] Удаляем интерфейс $TUN_IFACE и сбрасываем маршруты..."
+    ip link set dev "$TUN_IFACE" down 2>/dev/null
+    ip tuntap del mode tun dev "$TUN_IFACE" 2>/dev/null
+    ip route del "$PROXY_IP/32" via "$GATEWAY_IP" dev "$MAIN_IFACE" 2>/dev/null
+
+    # 4. Включаем обратно Firewall
+    echo "[*] Включаем firewalld..."
+    systemctl start firewalld
+
+    # 5. Восстанавливаем оригинальный DNS
+    if [ -f /etc/resolv.conf.backup ]; then
+        echo "[*] Восстанавливаем оригинальный resolv.conf..."
+        mv /etc/resolv.conf.backup /etc/resolv.conf
+    else
+        echo "[*] Бэкап resolv.conf не найден, перезапускаем NetworkManager..."
+        systemctl restart NetworkManager
+    fi
+
+    # 6. Сброс сетевого менеджера для чистки таблицы маршрутов
+    echo "[*] Перезапускаем NetworkManager для восстановления стандартных маршрутов..."
+    systemctl restart NetworkManager
+
+    echo "=== ТУННЕЛЬ ОТКЛЮЧЕН, СЕТЬ СБРОШЕНА ==="
+    ;;
+
+  *)
+    echo "Использование: $0 {start|stop}"
+    exit 1
+    ;;
+esac
