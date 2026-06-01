@@ -1,0 +1,32 @@
+Инструкция как сделать динамические обои для GNOME 
+да, это те самые обои которые могут автоматически менятся при переключение режимов dark и light
+ини тагже будет находится у вас где и все остальные обои в вашей системе (будет разделены на дневную и ночную версию)
+
+
+1. Впервую очерень идем по этому пути там унас будет лежать каталог gnome (но он нам ненужн так что создаем новый катал назовём его custom)
+/usr/share/backgrounds/
+mkdir castom
+
+2. далие в этот катал загружаем наши фотографии темную и светлую версию как сделать фотографии можно использовать нейросетью gemeni
+нозовем например  (на файлах png не тестировал но думакю что тоже будет работать) 
+gora_dark.jpg
+gora_light.jpeg
+
+3. далие нам нужно создать xml файл по которому наш gnome setting будет проходить и собирать наши фото
+/usr/share/gnome-background-properties
+sudo nvim custom-gora.xml
+
+4 теперь всталвяем данный xml важно если унас в коде будет опечатка ничего не получится 
+<wallpapers>
+  <wallpaper deleted="false">
+    <name>custom-gora</name>
+    <filename>/usr/share/backgrounds/custom/gora_light.jpg</filename>
+    <filename-dark>/usr/share/backgrounds/custom/gora_dark.jpeg</filename-dark>
+    <options>zoom</options>
+    <shade_type>solid</shade_type>
+    <pcolor>#000000</pcolor>
+    <scolor>#000000</scolor>
+  </wallpaper>
+</wallpapers>
+
+5. теперь заходит в настройки где наши темы это вкладка Apperance и унас должно поевится превью двух тем разделенные пополам
