@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Важно скачайте от сюда tun2proxy и перенесите в /usr/.local/bin/
+# Важно скачайте от сюда tun2proxy и перенесите в /usr/local/bin/
 # https://github.com/xjasonlyu/tun2socks    проще скачать архив и потом переименовать испольняемый файл в tun2socks
 
 # дополнительно источник 
