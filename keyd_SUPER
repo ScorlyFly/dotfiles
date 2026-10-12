@@ -57,7 +57,8 @@ space = space
 [space_modifier:M]
 # Переключение окон (уже под Альтом из-за :A, поэтому просто tab)
 # f = A-tab
-d = A-S-tab
+# включил d и не включил f так как в hyprshell по умолчанию всеровно настроенна f
+d = M-S-tab
 # leftshift = M-S-tab
 
 # Команды отмены
