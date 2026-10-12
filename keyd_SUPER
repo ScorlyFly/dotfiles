@@ -58,6 +58,7 @@ space = space
 # Переключение окон (уже под Альтом из-за :A, поэтому просто tab)
 # f = A-tab
 # d = A-S-tab
+leftshift = M-S-tab
 
 # Команды отмены
 c = C-z
