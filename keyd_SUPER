@@ -51,7 +51,9 @@ o = C-right
 , = home
 . = end
 space = space
-
+0 = C-backspace
+9 = backspace
+; = enter
 
 # [space_modifier:A]
 [space_modifier:M]
@@ -73,7 +75,7 @@ g = C-y
 # r = macro(leftmeta)
 
 # сохранения документа
-s = C-s
+# s = C-s
 
 # открытия всех приложения (важно не забудьте поменять в настройках горячих клавиш DE назначить данные клавиши)
 #t = macro(leftmeta+a)
@@ -100,6 +102,8 @@ a = macro(leftalt+space)
 # a = macro(meta+space)
 
 # перезагрузка композитора wayland (Важно понимать что на данный момент перезагрузить wayland с сохранением отkрытых окон невозможно, это возможно только на Xorg) для включение в x11 используем встроенные параметр в gnome-tweak встоенный не будет работать с wayland
+
+
 [f2]
 right = command(systemctl restart gdm)
 
@@ -110,4 +114,6 @@ right = command(systemctl restart gdm)
 # j = C-S-down
 # k = C-S-up
 # l = S-right
+
+
 
