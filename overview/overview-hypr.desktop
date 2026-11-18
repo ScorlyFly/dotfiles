@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Overview-hypr
+Exec=/home/vlad/space/sys/overview/overview.sh
+Icon=accept_signal
+Terminal=false
+Categories=Utility;
+StartupNotify=false
+NoDisplay=false
